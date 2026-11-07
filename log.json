@@ -1,7 +1,22 @@
 {
  "version": 1,
- "updated": "2026-11-07T19:34:30.578Z",
+ "updated": "2026-11-07T20:03:38.149Z",
  "events": [
-  {"id":"mw6sy8uwjr3yvp","at":"2026-11-07T19:34:28.952Z","by":"Dad","type":"child","value":{"name":"Elena","birthdate":"2026-03-21"}}
+  {"id":"mw6sy8uwjr3yvp","at":"2026-11-07T19:34:28.952Z","by":"Dad","type":"child","value":{"name":"Elena","birthdate":"2026-03-21"}},
+  {"id":"mw6tzpfrn2dwk2","at":"2026-11-07T20:03:36.711Z","by":"Dad","type":"tried","food":"spinach"},
+  {"id":"mw6tzpfrzq06g2","at":"2026-11-07T20:03:36.711Z","by":"Dad","type":"tried","food":"peas"},
+  {"id":"mw6tzpfrjkf13f","at":"2026-11-07T20:03:36.711Z","by":"Dad","type":"tried","food":"avocado"},
+  {"id":"mw6tzpfr9c0qbr","at":"2026-11-07T20:03:36.711Z","by":"Dad","type":"tried","food":"greek-yogurt"},
+  {"id":"mw6tzpfrlnq3lw","at":"2026-11-07T20:03:36.711Z","by":"Dad","type":"tried","food":"black-beans"},
+  {"id":"mw6tzpfr96x979","at":"2026-11-07T20:03:36.711Z","by":"Dad","type":"tried","food":"banana"},
+  {"id":"mw6tzpfrucut82","at":"2026-11-07T20:03:36.711Z","by":"Dad","type":"tried","food":"sweet-potato"},
+  {"id":"mw6tzpfrqhr30v","at":"2026-11-07T20:03:36.711Z","by":"Dad","type":"tried","food":"pumpkin"},
+  {"id":"mw6tzpfrqgindq","at":"2026-11-07T20:03:36.711Z","by":"Dad","type":"tried","food":"carrot"},
+  {"id":"mw6tzpfri4sxyu","at":"2026-11-07T20:03:36.711Z","by":"Dad","type":"tried","food":"cottage-cheese"},
+  {"id":"mw6tzpfrh1332e","at":"2026-11-07T20:03:36.711Z","by":"Dad","type":"tried","food":"oats"},
+  {"id":"mw6tzpfrbp3t10","at":"2026-11-07T20:03:36.711Z","by":"Dad","type":"tried","food":"egg"},
+  {"id":"mw6tzpfrcs6y2f","at":"2026-11-07T20:03:36.711Z","by":"Dad","type":"tried","food":"cucumber"},
+  {"id":"mw6tzpfr8sjrth","at":"2026-11-07T20:03:36.711Z","by":"Dad","type":"tried","food":"mango"},
+  {"id":"mw6tzpfrujdokn","at":"2026-11-07T20:03:36.711Z","by":"Dad","type":"tried","food":"apple"}
  ]
 }
