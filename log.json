@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-11-07T20:57:32.378Z",
+ "updated": "2026-11-07T20:57:41.779Z",
  "events": [
   {"id":"mw6sy8uwjr3yvp","at":"2026-11-07T19:34:28.952Z","by":"Dad","type":"child","value":{"name":"Elena","birthdate":"2026-03-21"}},
   {"id":"mw6tzpfrn2dwk2","at":"2026-11-07T20:03:36.711Z","by":"Dad","type":"tried","food":"spinach"},
@@ -19,6 +19,7 @@
   {"id":"mw6tzpfr8sjrth","at":"2026-11-07T20:03:36.711Z","by":"Dad","type":"tried","food":"mango"},
   {"id":"mw6tzpfrujdokn","at":"2026-11-07T20:03:36.711Z","by":"Dad","type":"tried","food":"apple"},
   {"id":"mw6u1gj26ajm1r","at":"2026-11-07T20:04:58.478Z","by":"Dad","type":"liking","food":"banana","value":"loved"},
-  {"id":"mw6vx110xx6ext","at":"2026-11-07T20:57:30.996Z","by":"Dad","type":"offered","food":"blueberry","date":"2026-11-07"}
+  {"id":"mw6vx110xx6ext","at":"2026-11-07T20:57:30.996Z","by":"Dad","type":"offered","food":"blueberry","date":"2026-11-07"},
+  {"id":"mw6vx8796nykua","at":"2026-11-07T20:57:40.293Z","by":"Dad","type":"liking","food":"blueberry","value":"liked"}
  ]
 }
