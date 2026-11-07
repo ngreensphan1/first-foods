@@ -347,7 +347,7 @@ function groupsHtml(list) {
 function renderFoods() {
   const chip = (id, label) => `<button class="chip" data-act="filter" data-f="${id}" aria-pressed="${ui.filter === id}">${label}</button>`;
   const homeTip = !isStandalone() && !device.homeTipDismissed && /iPhone|iPad/.test(navigator.userAgent)
-    ? '<div class="banner"><span><b>Add to Home Screen</b> so it opens like an app and keeps its data. Tap Share, then “Add to Home Screen”.</span><button data-act="dismiss-home">OK</button></div>' : '';
+    ? '<div class="banner"><span><b>Add to Home Screen</b> so it opens like an app and keeps its data. Tap Share, then “Add to Home Screen” (works in Safari or Chrome).</span><button data-act="dismiss-home">OK</button></div>' : '';
   app().innerHTML = `<div class="screen">
     <header class="top rule"><div class="top-row"><h1>Foods</h1>${syncDot()}</div>
       <p class="sub" id="summary">${foodsSummary()}</p>
@@ -567,7 +567,7 @@ function renderFirst() {
   } else {
     app().innerHTML = `<div class="first"><span class="steps">Step 4 of 4 · iPhone</span><h1>Add to Home Screen</h1>
       <p>It opens like an app, works offline, and keeps its data on this phone.</p>
-      <ol class="howto"><li>Tap the <b>Share</b> button in Safari (the square with an arrow).</li><li>Scroll and tap <b>Add to Home Screen</b>.</li><li>Tap <b>Add</b>, then open First Foods from your Home Screen.</li></ol>
+      <ol class="howto"><li>Tap <b>Share</b>: in Safari it’s the square with an arrow; in Chrome, tap the share icon in the address bar (or ⋯ → Share).</li><li>Tap <b>Add to Home Screen</b> (scroll down if you don’t see it).</li><li>Tap <b>Add</b>, then open First Foods from your Home Screen.</li></ol><p>Use one browser on each phone: Safari and Chrome keep separate copies of your name and token.</p>
       <div class="actions"><button class="btn primary" data-act="first-done">${isStandalone() ? 'Done' : 'I’ll do that now'}</button></div></div>`;
   }
 }

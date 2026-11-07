@@ -25,7 +25,7 @@ A small, free website for logging the foods our baby has tried, how she liked th
 
 ## Setting up a phone
 
-1. Open the site in Safari.
+1. Open the site in Safari or Chrome (use the same one each time).
 2. Enter your name and paste the token (stored only on that phone).
 3. Enter the baby's name and birthdate (shared to both phones).
 4. Share → **Add to Home Screen**.
