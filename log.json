@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-11-08T00:53:29.930Z",
+ "updated": "2026-11-08T01:52:30.475Z",
  "events": [
   {"id":"mw6sy8uwjr3yvp","at":"2026-11-07T19:34:28.952Z","by":"Dad","type":"child","value":{"name":"Elena","birthdate":"2026-03-21"}},
   {"id":"mw6tzpfrn2dwk2","at":"2026-11-07T20:03:36.711Z","by":"Dad","type":"tried","food":"spinach"},
@@ -22,6 +22,8 @@
   {"id":"mw6vx110xx6ext","at":"2026-11-07T20:57:30.996Z","by":"Dad","type":"offered","food":"blueberry","date":"2026-11-07"},
   {"id":"mw6vx8796nykua","at":"2026-11-07T20:57:40.293Z","by":"Dad","type":"liking","food":"blueberry","value":"liked"},
   {"id":"mw74ccli0oxylu","at":"2026-11-08T00:53:22.758Z","by":"Dad","type":"offered","food":"broccoli","date":"2026-11-07"},
-  {"id":"mw74cgztfufqf5","at":"2026-11-08T00:53:28.458Z","by":"Dad","type":"liking","food":"broccoli","value":"rejected"}
+  {"id":"mw74cgztfufqf5","at":"2026-11-08T00:53:28.458Z","by":"Dad","type":"liking","food":"broccoli","value":"rejected"},
+  {"id":"mw76gbvtna1v9w","at":"2026-11-08T01:52:27.689Z","by":"Dad","type":"offered","food":"oat-infant-cereal","date":"2026-11-07"},
+  {"id":"mw76gctv5m3i9d","at":"2026-11-08T01:52:28.915Z","by":"Dad","type":"liking","food":"oat-infant-cereal","value":"loved"}
  ]
 }
