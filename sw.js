@@ -1,6 +1,6 @@
 // Offline cache for the site files. The shared log is never cached here:
 // it goes straight to GitHub's API and the app keeps its own local copy.
-const VERSION = 'ff-v2';
+const VERSION = 'ff-v3';
 const FILES = ['./', 'index.html', 'styles.css', 'app.js', 'foods.json', 'manifest.webmanifest',
   'icons/apple-touch-icon.png', 'icons/icon-192.png', 'icons/icon-512.png'];
 

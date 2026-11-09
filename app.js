@@ -5,7 +5,7 @@
 
 const CFG = { owner: 'ngreensphan1', repo: 'first-foods', branch: 'data', path: 'log.json' };
 const API = `https://api.github.com/repos/${CFG.owner}/${CFG.repo}`;
-const VERSION = '1.0.0';
+const VERSION = '1.1.0';
 
 /* ---------- storage ---------- */
 const LS = {
@@ -255,7 +255,8 @@ function syncDot() {
 }
 
 /* ---------- UI state ---------- */
-const ui = { tab: 'foods', q: '', filter: 'all', strip: null, expanded: new Set(), overlay: null, food: null, histAll: false,
+const clearBtn = (v) => `<button type="button" class="clear" data-act="clear-q" aria-label="Clear search"${v ? '' : ' hidden'}><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7" stroke="var(--surface)" stroke-width="2.2" stroke-linecap="round"/></svg></button>`;
+const ui = { tab: 'foods', q: '', filter: 'all', likeSel: new Set(), strip: null, expanded: new Set(), overlay: null, food: null, histAll: false,
   meal: { date: today(), sel: [], q: '' }, catchSel: new Set(), catchQ: '', first: 0, pendingMeal: null, testMsg: '' };
 const app = () => $('#app');
 
@@ -310,6 +311,7 @@ function filtered() {
       case 'nottried': return !s.tried;
       case 'allergens': return (f.allergens || []).length > 0;
       case 'caution': return hasCaution(f) || hasWait12(f);
+      case 'tried': return s.tried && (!ui.likeSel.size || ui.likeSel.has(s.liking || 'unrated'));
       case 'tryagain': return s.liking === 'rejected' || s.liking === 'disliked';
       case 'reactions': return s.reaction === 'mild' || s.reaction === 'severe';
       default: return true;
@@ -326,6 +328,7 @@ function foodsList() {
   const list = filtered();
   if (!list.length) {
     if (ui.q) return `<div class="empty-state"><h2>No match for “${esc(ui.q)}”</h2><p>Try another name, like “yogurt” instead of “yoghurt”. Not in the list? Use the closest food and add a note.</p><button class="btn secondary" data-act="clear-search">Clear search</button></div>`;
+    if (ui.filter === 'tried') return ui.likeSel.size ? '<div class="empty-state"><h2>No tried foods with that rating</h2><p>Tap another rating, or tap a selected one to turn it off.</p></div>' : '<div class="empty-state"><h2>Nothing tried yet</h2></div>';
     if (ui.filter === 'tryagain') return '<div class="empty-state"><h2>Nothing to try again</h2><p>Foods rated Rejected or Disliked show up here so you remember to offer them again. It can take many tries before a baby accepts a food.</p></div>';
     if (ui.filter === 'reactions') return '<div class="empty-state"><h2>No reactions logged</h2></div>';
     return '<div class="empty-state"><h2>Nothing here yet</h2></div>';
@@ -336,13 +339,21 @@ function foodsList() {
   }
   return groupsHtml(list);
 }
+const LIKE_RANK = { loved: 0, liked: 1, neutral: 2, disliked: 3, rejected: 4 };
+const likeRank = (id) => LIKE_RANK[fs(id).liking] ?? 5;
 function groupsHtml(list) {
   return CAT.categories.map((c) => {
-    const items = list.filter((f) => f.category === c.id); if (!items.length) return '';
+    let items = list.filter((f) => f.category === c.id); if (!items.length) return '';
+    if (ui.filter === 'tried') items = items.slice().sort((a, b) => likeRank(a.id) - likeRank(b.id)); // best-liked first
     const all = CAT.foods.filter((f) => f.category === c.id);
     const tried = all.filter((f) => fs(f.id).tried).length;
     return `<h2 class="sec">${esc(c.label)} <span>${tried} of ${all.length}</span></h2><ul class="group">${items.map(foodRow).join('')}</ul>`;
   }).join('');
+}
+function likeChips() {
+  const counts = {}; CAT.foods.forEach((f) => { const s = fs(f.id); if (s.tried) { const k = s.liking || 'unrated'; counts[k] = (counts[k] || 0) + 1; } });
+  const opts = [...LIKES.slice().reverse(), ['unrated', 'Not rated']];
+  return `<div class="chips likechips" role="group" aria-label="Filter by how she liked it">${opts.map(([k, l]) => `<button class="chip" data-act="likefilter" data-v="${k}" aria-pressed="${ui.likeSel.has(k)}">${k !== 'unrated' ? face(k, 18) : ''}${l} <span class="cnt">${counts[k] || 0}</span></button>`).join('')}</div>`;
 }
 function renderFoods() {
   const chip = (id, label) => `<button class="chip" data-act="filter" data-f="${id}" aria-pressed="${ui.filter === id}">${label}</button>`;
@@ -351,8 +362,9 @@ function renderFoods() {
   app().innerHTML = `<div class="screen">
     <header class="top rule"><div class="top-row"><h1>Foods</h1>${syncDot()}</div>
       <p class="sub" id="summary">${foodsSummary()}</p>
-      <label class="search">${I.search}<input type="search" id="q" aria-label="Search foods" placeholder="Search ${CAT.foods.length} foods" value="${esc(ui.q)}" autocomplete="off" autocorrect="off"></label>
-      <div class="chips">${chip('all', 'All')}${chip('nottried', 'Not tried yet')}${chip('allergens', 'Allergens')}${chip('caution', 'Caution')}${chip('tryagain', 'Try again')}${chip('reactions', 'Reactions')}</div>
+      <label class="search">${I.search}<input type="search" id="q" aria-label="Search foods" placeholder="Search ${CAT.foods.length} foods" value="${esc(ui.q)}" autocomplete="off" autocorrect="off">${clearBtn(ui.q)}</label>
+      <div class="chips">${chip('all', 'All')}${chip('nottried', 'Not tried yet')}${chip('tried', 'Tried')}${chip('allergens', 'Allergens')}${chip('caution', 'Caution')}${chip('tryagain', 'Try again')}${chip('reactions', 'Reactions')}</div>
+      ${ui.filter === 'tried' ? likeChips() : ''}
     </header>${homeTip}<main id="list">${foodsList()}</main></div>${tabbar()}`;
   $('#q').addEventListener('input', (e) => { ui.q = e.target.value; ui.strip = null; $('#list').innerHTML = foodsList(); });
 }
@@ -501,7 +513,7 @@ function renderMeal() {
   };
   app().innerHTML = `<div class="screen"><header class="top rule"><div class="top-row"><h1>Log meal</h1>${syncDot()}</div>
     <label class="field"><span>Date</span><input type="date" id="meal-date" value="${m.date}" max="${today()}"></label>
-    <label class="search">${I.search}<input type="search" id="mq" placeholder="Add a food" value="${esc(m.q)}" autocomplete="off" autocorrect="off" aria-label="Search foods to add"></label>
+    <label class="search">${I.search}<input type="search" id="mq" placeholder="Add a food" value="${esc(m.q)}" autocomplete="off" autocorrect="off" aria-label="Search foods to add">${clearBtn(m.q)}</label>
     ${m.sel.length ? `<div class="sel">${m.sel.map((id) => `<button data-act="meal-pick" data-id="${id}" aria-label="Remove ${esc(FOOD.get(id).name)}">${esc(FOOD.get(id).name)}${I.close}</button>`).join('')}</div>` : ''}
     </header><main id="meal-list">${mealList(pickList, row, recentIds)}</main>
     ${m.sel.length ? `<div class="savebar"><button class="btn primary" data-act="meal-save">Log ${m.sel.length} food${m.sel.length === 1 ? '' : 's'} for ${m.date === today() ? 'today' : fmtDate(m.date)}</button></div>` : ''}
@@ -579,7 +591,7 @@ function renderCatchup(inFirstRun) {
     ${inFirstRun ? '<span class="steps" style="font-size:14px;font-weight:700;color:var(--ink-2);text-transform:uppercase;letter-spacing:.5px">Step 3 of 4 · Catch up</span>' : ''}
     <div class="top-row"><h1 style="font-size:30px;line-height:36px">What has she already had?</h1></div>
     <p class="sub" style="margin:0">Tick everything she’s eaten so far. No dates needed. You can do this later from Settings.</p>
-    <label class="search">${I.search}<input type="search" id="cq" placeholder="Search foods" value="${esc(q)}" autocomplete="off" aria-label="Search foods"></label></header>
+    <label class="search">${I.search}<input type="search" id="cq" placeholder="Search foods" value="${esc(q)}" autocomplete="off" aria-label="Search foods">${clearBtn(q)}</label></header>
     <main id="catch-list">${catchList(list)}</main>
     <div class="savebar" style="bottom:0;padding-bottom:calc(var(--safe-bottom) + 12px);display:flex;flex-direction:column;gap:8px">
       <button class="btn primary" data-act="catch-save" ${n ? '' : 'disabled'}>Mark ${n} food${n === 1 ? '' : 's'} as tried</button>
@@ -653,6 +665,11 @@ document.addEventListener('click', (ev) => {
     case 'tab': ui.tab = el.dataset.tab; ui.strip = null; scrollTo(0, 0); renderTab(); break;
     case 'filter': ui.filter = el.dataset.f; ui.strip = null; renderFoods(); break;
     case 'clear-search': ui.q = ''; renderFoods(); break;
+    case 'likefilter': { const v = el.dataset.v; ui.likeSel.has(v) ? ui.likeSel.delete(v) : ui.likeSel.add(v); ui.strip = null; const y = scrollY; renderFoods(); scrollTo(0, y); break; }
+    case 'clear-q': {
+      const input = el.parentElement.querySelector('input');
+      input.value = ''; input.dispatchEvent(new Event('input', { bubbles: true })); input.focus(); break;
+    }
     case 'toggle': toggleFood(id); break;
     case 'open': ui.food = id; ui.histAll = false; openOverlay('food'); break;
     case 'strip': ui.strip = ui.strip === id ? null : id; refresh(); break;
@@ -729,6 +746,9 @@ document.addEventListener('change', (ev) => {
   if (act === 'note') { const v = el.value.trim(); if (v !== fs(el.dataset.id).note) { addEvents([{ type: 'note', food: el.dataset.id, value: v }]); toast('Note saved'); } }
   if (act === 'first-date' && el.value) { addEvents([{ type: 'firstTried', food: el.dataset.id, value: el.value }]); renderOverlay(); }
 });
+// Show the clear (x) button only while a search box has text; keep the keyboard up when it's tapped.
+document.addEventListener('input', (ev) => { const t = ev.target; if (t.type === 'search') { const b = t.parentElement.querySelector('.clear'); if (b) b.hidden = !t.value; } });
+document.addEventListener('pointerdown', (ev) => { if (ev.target.closest('.clear')) ev.preventDefault(); });
 document.addEventListener('keydown', (ev) => { if (ev.key === 'Escape' && ui.overlay) closeOverlay(); });
 
 function saveBaby(name, bday) {

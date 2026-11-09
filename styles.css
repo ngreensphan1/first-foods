@@ -56,6 +56,12 @@ h1 { margin: 0; font-size: 34px; line-height: 41px; font-weight: 700; letter-spa
 .search { display: flex; align-items: center; gap: 8px; height: 48px; padding: 0 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; color: var(--ink-2); }
 .search input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; -webkit-appearance: none; }
 .search input::placeholder { color: #6B665D; }
+.search input::-webkit-search-cancel-button, .search input::-webkit-search-decoration { -webkit-appearance: none; display: none; }
+.clear { width: 44px; height: 44px; margin-right: -12px; flex: none; border: 0; background: transparent; padding: 0; display: flex; align-items: center; justify-content: center; color: var(--control); }
+.clear[hidden] { display: none; }
+.likechips .chip { display: inline-flex; align-items: center; gap: 6px; padding: 0 12px; }
+.likechips .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.chip .cnt { font-weight: 500; opacity: .75; }
 .chips { display: flex; gap: 8px; margin-right: -16px; padding-right: 16px; overflow-x: auto; scrollbar-width: none; }
 .chips::-webkit-scrollbar { display: none; }
 .chip { flex: none; height: 40px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); font-size: 15px; font-weight: 600; }
