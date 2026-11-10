@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-11-09T23:28:29.270Z",
+ "updated": "2026-11-10T17:32:04.389Z",
  "events": [
   {"id":"mw6sy8uwjr3yvp","at":"2026-11-07T19:34:28.952Z","by":"Dad","type":"child","value":{"name":"Elena","birthdate":"2026-03-21"}},
   {"id":"mw6tzpfrn2dwk2","at":"2026-11-07T20:03:36.711Z","by":"Dad","type":"tried","food":"spinach"},
@@ -31,6 +31,7 @@
   {"id":"mw9w5xocqmfq7b","at":"2026-11-09T23:27:45.084Z","by":"Dad","type":"offered","food":"peas","date":"2026-11-09"},
   {"id":"mw9w6cjzpfhb91","at":"2026-11-09T23:28:04.367Z","by":"Dad","type":"liking","food":"peas","value":"liked"},
   {"id":"mw9w6ouwjb9ol4","at":"2026-11-09T23:28:20.312Z","by":"Dad","type":"liking","food":"broccoli","value":"liked"},
-  {"id":"mw9w6u6soihq4i","at":"2026-11-09T23:28:27.220Z","by":"Dad","type":"note","food":"broccoli","value":"Likes with peas"}
+  {"id":"mw9w6u6soihq4i","at":"2026-11-09T23:28:27.220Z","by":"Dad","type":"note","food":"broccoli","value":"Likes with peas"},
+  {"id":"mwaywcm0qgewpi","at":"2026-11-10T17:32:02.905Z","by":"Dad","type":"offered","food":"kale","date":"2026-11-10"}
  ]
 }
