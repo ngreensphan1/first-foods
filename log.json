@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-11-23T23:36:56.065Z",
+ "updated": "2026-11-23T23:36:58.939Z",
  "events": [
   {"id":"mw6sy8uwjr3yvp","at":"2026-11-07T19:34:28.952Z","by":"Dad","type":"child","value":{"name":"Elena","birthdate":"2026-03-21"}},
   {"id":"mw6tzpfrn2dwk2","at":"2026-11-07T20:03:36.711Z","by":"Dad","type":"tried","food":"spinach"},
@@ -47,6 +47,7 @@
   {"id":"mwpkz9ceoqbb70","at":"2026-11-20T22:58:56.654Z","by":"Dad","type":"liking","food":"zucchini","value":"liked"},
   {"id":"mwpkzu48h4ie99","at":"2026-11-20T22:59:23.576Z","by":"Dad","type":"undo","ref":"mw6tzpfri4sxyu"},
   {"id":"mwpl05lsu78vsx","at":"2026-11-20T22:59:38.464Z","by":"Dad","type":"liking","food":"carrot","value":"loved"},
-  {"id":"mwtwnn0eowaqt0","at":"2026-11-23T23:36:54.590Z","by":"Dad","type":"offered","food":"ginger","date":"2026-11-23"}
+  {"id":"mwtwnn0eowaqt0","at":"2026-11-23T23:36:54.590Z","by":"Dad","type":"offered","food":"ginger","date":"2026-11-23"},
+  {"id":"mwtwnpa32ywgxd","at":"2026-11-23T23:36:57.531Z","by":"Dad","type":"liking","food":"ginger","value":"liked"}
  ]
 }
